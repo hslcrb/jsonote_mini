@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 // 설정 컨텍스트 생성 / Create Settings Context
 const SettingsContext = createContext();
@@ -17,19 +18,24 @@ export function SettingsProvider({ children }) {
         path: '',
     });
 
-    // 마운트 시 로컬 스토리지에서 설정 로드 / Load settings from local storage on mount
+    // 마운트 시 쿠키에서 설정 로드 / Load settings from cookies on mount
     useEffect(() => {
-        const savedSettings = localStorage.getItem('jsonote_settings');
+        const savedSettings = Cookies.get('jsonote_settings');
         if (savedSettings) {
-            setSettings(JSON.parse(savedSettings));
+            try {
+                setSettings(JSON.parse(savedSettings));
+            } catch (e) {
+                console.error('설정 로드 중 오류 발생 / Error loading settings:', e);
+            }
         }
     }, []);
 
-    // 설정 업데이트 및 로컬 스토리지 저장 / Update settings and save to local storage
+    // 설정 업데이트 및 쿠키 저장 / Update settings and save to cookies
     const updateSettings = (newSettings) => {
         const updated = { ...settings, ...newSettings };
         setSettings(updated);
-        localStorage.setItem('jsonote_settings', JSON.stringify(updated));
+        // 쿠키에 저장 (보안을 위해 7일간 유지) / Save to cookies (expires in 7 days for security)
+        Cookies.set('jsonote_settings', JSON.stringify(updated), { expires: 7, secure: true, sameSite: 'strict' });
     };
 
     return (
