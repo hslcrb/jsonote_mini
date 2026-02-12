@@ -5,6 +5,10 @@ import Button from './Button';
 import Input from './Input';
 import { useState } from 'react';
 
+/**
+ * 노트 리스트 컴포넌트 / Note List Component
+ * 저장된 노트 목록을 표시하고 검색 및 새 노트 생성을 가능하게 합니다. / Displays the list of saved notes and enables search and new note creation.
+ */
 export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSettings }) {
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -19,7 +23,7 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
             exit={{ opacity: 0 }}
             className="flex flex-col h-[100dvh] bg-background relative"
         >
-            {/* Top Bar */}
+            {/* 상단 바 / Top Bar */}
             <header className="px-6 py-4 flex items-center justify-between bg-surface/30 backdrop-blur-xl sticky top-0 z-10 border-b border-white/5">
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                     JSONote
@@ -27,13 +31,13 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
                 <Button variant="ghost" icon={<Settings size={20} />} onClick={onOpenSettings} />
             </header>
 
-            {/* Search Bar */}
+            {/* 검색 바 / Search Bar */}
             <div className="px-6 py-2 sticky top-16 z-10 bg-background/80 backdrop-blur-md">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={16} />
                     <input
                         type="text"
-                        placeholder="Search notes..."
+                        placeholder="노트 검색... / Search notes..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full bg-surface/50 border-none rounded-2xl py-3 pl-10 pr-4 text-sm text-foreground placeholder-text-muted focus:ring-1 focus:ring-accent/50 outline-none transition-all"
@@ -41,7 +45,7 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
                 </div>
             </div>
 
-            {/* Note List */}
+            {/* 노트 목록 영역 / Note List Area */}
             <div className="flex-1 overflow-y-auto px-5 pb-32 pt-2 space-y-4">
                 {notes.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-64 text-text-muted text-sm text-center">
@@ -52,8 +56,8 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
                         >
                             <FileText size={32} />
                         </motion.div>
-                        <p className="mb-1 font-medium text-text-secondary">No notes found</p>
-                        <p className="text-xs">Tap the + button to create a new note.</p>
+                        <p className="mb-1 font-medium text-text-secondary">노트를 찾을 수 없습니다 / No notes found</p>
+                        <p className="text-xs">+ 버튼을 눌러 새 노트를 작성해보세요. / Tap the + button to create a new note.</p>
                     </div>
                 ) : (
                     filteredNotes.map((note, index) => (
@@ -80,7 +84,7 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
                 )}
             </div>
 
-            {/* Floating Action Button (FAB) */}
+            {/* 플로팅 액션 버튼 (FAB) / Floating Action Button (FAB) */}
             <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

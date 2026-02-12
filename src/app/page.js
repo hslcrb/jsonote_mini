@@ -7,6 +7,10 @@ import NoteEditor from '@/app/components/NoteEditor';
 import SettingsModal from '@/app/components/SettingsModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * 메인 홈 페이지 컴포넌트 / Main Home Page Component
+ * 리스트 뷰와 에디터 뷰 간의 전환을 관리합니다. / Manages transitions between list view and editor view.
+ */
 export default function Home() {
     const { settings } = useSettings();
     const [notes, setNotes] = useState([]);
@@ -17,13 +21,13 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Helper to get octokit instance
+    // Octokit 인스턴스 생성을 위한 헬퍼 / Helper to get octokit instance
     const getOctokit = useCallback(() => {
         if (!settings.token) return null;
         return createOctokit(settings.token);
     }, [settings.token]);
 
-    // Fetch notes on load or settings change
+    // 설정 변경 시 노트 목록 로드 / Fetch notes on load or settings change
     useEffect(() => {
         async function loadNotes() {
             if (!settings.token || !settings.owner || !settings.repo) {
@@ -38,7 +42,7 @@ export default function Home() {
                 const fetchedNotes = await fetchNotes(octokit, settings.owner, settings.repo, settings.path);
                 setNotes(fetchedNotes);
             } catch (err) {
-                setError('Failed to fetch notes. Check your settings.');
+                setError('노트를 가져오는데 실패했습니다. 설정을 확인해주세요. / Failed to fetch notes. Check your settings.');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -48,6 +52,7 @@ export default function Home() {
         loadNotes();
     }, [settings, getOctokit]);
 
+    // 특정 노트 선택 처리 / Handle single note selection
     const handleSelectNote = async (note) => {
         setSelectedNote(note);
         setLoading(true);
@@ -57,30 +62,26 @@ export default function Home() {
             setNoteContent(content);
             setView('editor');
         } catch (err) {
-            console.error('Error loading note content:', err);
-            setError('Failed to load note content.');
+            console.error('노트 내용을 불러오는 중 오류 발생 / Error loading note content:', err);
+            setError('노트 내용을 불러오는데 실패했습니다. / Failed to load note content.');
         } finally {
             setLoading(false);
         }
     };
 
+    // 새 노트 생성 시작 / Start creating a new note
     const handleNewNote = () => {
         setSelectedNote({ name: 'Untitled.md', sha: null, content: '' });
         setNoteContent('');
         setView('editor');
     };
 
+    // 목록으로 돌아가기 및 자동 저장 / Back to list and auto-save
     const handleBackToNotes = async (content, title) => {
-        // Optimistic UI update or wait for save?
-        // Let's wait for save to ensure data consistency, but show loading.
-
         if (!selectedNote) {
             setView('list');
             return;
         }
-
-        // Only save if content or title changed (simple check)
-        // For now, just save on every back to be safe (Samsung Notes style)
 
         setLoading(true);
         try {
@@ -98,13 +99,13 @@ export default function Home() {
                 selectedNote.sha
             );
 
-            // Refresh list
+            // 목록 갱신 / Refresh list
             const updatedNotes = await fetchNotes(octokit, settings.owner, settings.repo, settings.path);
             setNotes(updatedNotes);
 
         } catch (err) {
-            console.error('Error saving note:', err);
-            setError('Failed to save note.');
+            console.error('노트 저장 중 오류 발생 / Error saving note:', err);
+            setError('노트 저장에 실패했습니다. / Failed to save note.');
         } finally {
             setLoading(false);
             setView('list');
@@ -133,7 +134,7 @@ export default function Home() {
                 )}
             </AnimatePresence>
 
-            {/* Loading Overlay */}
+            {/* 로딩 오버레이 / Loading Overlay */}
             <AnimatePresence>
                 {loading && (
                     <motion.div

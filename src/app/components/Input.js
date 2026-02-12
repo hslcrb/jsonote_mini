@@ -1,6 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
 
+/**
+ * 범용 입력창 컴포넌트 / Generic Input Component
+ */
 export default function Input({ className = '', placeholder, type = 'text', value, onChange, ...props }) {
     const baseClasses = 'w-full px-5 py-3.5 rounded-2xl bg-surface/50 border border-white/5 focus:bg-surface/70 focus:border-accent/40 focus:ring-1 focus:ring-accent/20 outline-none transition-all duration-200 text-text-primary placeholder:text-text-muted/50 font-medium shadow-sm active:scale-[0.99] focus:scale-[1.01]';
 

@@ -1,6 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
 
+/**
+ * 범용 카드 컴포넌트 / Generic Card Component
+ */
 export default function Card({ children, className = '', onClick }) {
     return (
         <motion.div

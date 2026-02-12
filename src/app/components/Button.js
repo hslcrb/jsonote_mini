@@ -1,6 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
 
+/**
+ * 범용 버튼 컴포넌트 / Generic Button Component
+ */
 export default function Button({ children, className = '', onClick, variant = 'primary', icon, iconPosition = 'left', ...props }) {
     const baseClasses = 'flex items-center justify-center transition-all font-semibold active:scale-95 disabled:opacity-50 disabled:pointer-events-none';
 
