@@ -39,7 +39,7 @@ export default function SettingsModal({ isOpen, onClose }) {
                                 onChange={handleChange}
                             />
                             <p className="text-[10px] text-text-muted mt-2 px-1 leading-relaxed italic opacity-80">
-                                브라우저 내부에 로컬로 저장됩니다. <b>repo</b> 권한이 필요합니다. / Stored locally in your browser. Use a token with <b>repo</b> scope.
+                                브라우저 **쿠키(Cookies)**에 안전하게 저장됩니다. <b>repo</b> 권한이 필요합니다. / Stored safely in browser **cookies**. Use a token with <b>repo</b> scope.
                             </p>
                         </div>
                     </div>
