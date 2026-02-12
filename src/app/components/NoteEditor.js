@@ -86,7 +86,7 @@ export default function NoteEditor({ note, onBack, updateSettings, settings }) {
                         ref={textareaRef}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        placeholder="여기에 내용을 입력하세요... / Start writing..."
+                        placeholder="이곳에 내용을 입력하세요... / Enter content here..."
                         className="w-full min-h-screen bg-transparent p-6 pb-32 resize-none outline-none text-lg leading-relaxed text-text-primary placeholder-text-muted font-mono"
                         spellCheck={false}
                     />

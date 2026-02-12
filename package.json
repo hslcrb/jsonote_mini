@@ -1,6 +1,7 @@
 {
   "name": "jsonote_mini",
   "version": "0.1.0",
+  "description": "삼성 노트 스타일의 프리미엄 모바일 마크다운 메모 앱 / Premium Samsung Notes-style mobile markdown note app",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -76,7 +76,7 @@ export default function NoteList({ notes, onSelectNote, onNewNote, onOpenSetting
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h3 className="font-bold text-lg text-text-primary tracking-tight truncate">{note.name.replace('.md', '')}</h3>
-                                    <p className="text-xs font-medium text-text-muted mt-0.5 opacity-70">Markdown Note</p>
+                                    <p className="text-xs font-medium text-text-muted mt-0.5 opacity-70">마크다운 노트 / Markdown Note</p>
                                 </div>
                             </div>
                         </motion.div>
